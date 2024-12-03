@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    .quiz-container {
+      width: 300px;
+      margin: auto;
+    }
+    .question {
+      font-size: 18px;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 5px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .score {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <div id="question-container">
+    <p id="question" class="question"></p>
+    <div id="options" class="options"></div>
+  </div>
+  <p id="score" class="score"></p>
+</div>
+
+<script>
+  const quizData = [
+    {
+      question: "What is the capital of France?",
+      options: ["Berlin", "Madrid", "Paris", "Rome"],
+      answer: "Paris"
+    },      
+    {
+      question: "Who wrote 'To be, or not to be'?",
+      options: ["Shakespeare", "Hemingway", "Dickens", "Tolstoy"],
+      answer: "Shakespeare"
+    },
+    {
+      question: "What is 2 + 2?",
+      options: ["3", "4", "5", "6"],
+      answer: "4"
+    },
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+
+  function loadQuestion() {
+    // Display the current question and options
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    questionEl.textContent = quizData[currentQuestion].question;
+    optionsEl.innerHTML = ""; // Clear previous options
+
+    quizData[currentQuestion].options.forEach(option => {
+      const button = document.createElement("button");
+      button.textContent = option;
+      button.onclick = () => checkAnswer(option);
+      optionsEl.appendChild(button);
+    });
+  }
+
+  function checkAnswer(selectedOption) {
+    // Check if the answer is correct
+    if (selectedOption === quizData[currentQuestion].answer) {
+      score++;
+    }
+    currentQuestion++;
+    // Check if there are more questions
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      showScore();
+    }
+  }
+
+  function showScore() {
+    const questionContainer = document.getElementById("question-container");
+    const scoreEl = document.getElementById("score");
+    questionContainer.innerHTML = `<p>Quiz Complete!</p>`;
+    scoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+  }
+
+  // Load the first question when the page loads
+  loadQuestion();
+</script>
+
+</body>
+</html>

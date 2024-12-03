@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Application</title>
+</head>
+
+<body>
+    <script>
+        // Quiz data with questions and answers
+        const questions = [
+            { question: "What is the capital of France?", answer: "Paris" },
+            { question: "What is 2 + 2?", answer: "4" },
+            { question: "Who wrote 'To be, or not to be'?", answer: "Shakespeare" }
+        ];
+
+        let currentQuestion = 0; // Track current question
+        let score = 0;           // Track user score
+
+        // Load and ask the question using prompt
+        function loadQuestion() {
+            if (currentQuestion < questions.length) {
+                // Display question and get user input
+                const userAnswer = window.prompt(questions[currentQuestion].question);
+
+                // Check answer
+                checkAnswer(userAnswer);
+            } else {
+                // No more questions, show the score
+                showScore();
+            }
+        }
+
+        // Check if the answer is correct
+        function checkAnswer(userAnswer) {
+            if (userAnswer && userAnswer.trim().toLowerCase() === questions[currentQuestion].answer.toLowerCase()) {
+                score++; // Increase score if answer is corrnnumj9iolect
+            }
+            currentQuestion++; // Move to the next question
+            loadQuestion();    // Load the next question
+        }
+                     
+        // Display final score after all questions are answered
+        function showScore() {
+            document.write("Quiz Complete!<br>");
+            document.write(`Your Score: ${score} / ${questions.length}`);
+        }
+
+        // Start the quiz
+        loadQuestion();
+    </script>
+</body>
+
+</html>
